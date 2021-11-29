@@ -40,9 +40,13 @@
           <li class="nav-item nav-profile dropdown">
             <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" id="profileDropdown">
               <!--<img src="images/faces/face5.jpg" alt="profile"/>-->
-              <span class="nav-profile-name">ARRUMAR AQUI</span>
+              <span class="nav-profile-name"><?php echo ($_SESSION['usuario_nome']) ?></span>
             </a>
             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+            <a href="<?php echo site_url("/admin/usuarios/editar/". $_SESSION['usuario_id']);?> "class="dropdown-item">
+                <i class="mdi mdi-account text-primary"></i>
+                Alterar Cadastro
+              </a>
               <a href="<?php echo site_url("login/logout");?> "class="dropdown-item">
                 <i class="mdi mdi-logout text-primary"></i>
                 Logout
@@ -167,7 +171,7 @@
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
           <div class="d-sm-flex justify-content-center justify-content-sm-between">
-            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Sistema Administrativo TCC</span>
+            <span class="text-muted d-block text-center text-sm-left d-sm-inline-block">Mercado Mobile Online</span>
           </div>
         </footer>
         <!-- partial -->

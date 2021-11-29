@@ -54,9 +54,14 @@
                             <?php echo esc($produto->categoria); ?>
                         </p>
                         <p class="card-text">
-                            <span class="font-weight-bold">Slug: </span>
-                            <?php echo esc($produto->slug); ?>
+                            <span class="font-weight-bold">Preco: </span>
+                            <?php echo esc($precos->preco); ?>
                         </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Quantidade: </span>
+                            <?php echo esc($precos->quantidade); ?>
+                        </p>
+
                         <p class="card-text">
                             <span class="font-weight-bold">Ativo: </span>
                             <?php echo esc($produto->ativo ? 'Sim' : 'Não'); ?>

@@ -47,6 +47,38 @@
                             <span class="font-weight-bold">Nome: </span>
                             <?php echo esc($loja->nome); ?>
                         </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Endereco: </span>
+                            <?php echo esc($loja->rua); ?>,
+                            <?php echo esc($loja->numero); ?> -
+                            <?php echo esc($loja->bairro); ?> -
+                            <?php echo esc($loja->cidade); ?>
+                        </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">CNPJ: </span>
+                            <?php echo esc($loja->cnpj); ?>
+                        </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Valor de Entrega: </span>
+                            R$&nbsp;<?php echo (number_format($loja->valor_entrega_padrao, 2)); ?>
+                        </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Valor para Entrega Grátis: </span>
+                            R$&nbsp;<?php echo (number_format($loja->valor_entrega_gratis, 2)); ?>
+                        </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Entrega Gratis: </span>
+                            <?php echo esc($loja->entrega_gratis ? 'Sim' : 'Não'); ?>
+                        </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Previsão de Entrega: </span>
+                            <?php echo esc($loja->previsao); ?> Minutos
+                        </p>
+                        <p class="card-text">
+                            <span class="font-weight-bold">Ativo: </span>
+                            <?php echo esc($loja->ativo ? 'Sim' : 'Não'); ?>
+                        </p>
+                    
 
                         <div class="mt-4"> 
 

@@ -38,15 +38,15 @@
                     
 
 
-                        <?php echo form_open("admin/produtos/cadastrarespecificacoes/$produto->id"); ?>
+                        <?php echo form_open("admin/produtos/atualizarespecificacoes/$produto->id"); ?>
 
                         <div class="form-group col-md-8">
                             <label for="preco">Preco</label>
-                            <input type="text" class="form-control" name="preco" id="preco" value="<?php echo old('preco', esc($produto->preco));?>">
+                            <input type="text" class="form-control" name="preco" id="preco" value="<?php echo $especificacao['preco'];?>">
                         </div>
                         <div class="form-group col-md-8">
                             <label for="nome">Quantidade</label>
-                            <input type="text" class="form-control" name="quantidade" id="quantidade" value="<?php echo old('quantidade', esc($produto->quantidade));?>">
+                            <input type="text" class="form-control" name="quantidade" id="quantidade" value="<?php echo $especificacao['quantidade'];?>">
                         </div> 
                         
                         <button type="submit" class="btn btn-primary mr-2 btn-sm">

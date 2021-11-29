@@ -240,13 +240,14 @@ class FormasPagamento extends BaseController
 		
 			$forma['id_loja'] = $_SESSION["loja_id"];
 			$forma['id_forma_pagamento'] = $formaPagamento->id;
+			$forma['ativo'] = '1';
 
 			
-			if($this->formaPagamentoLojaModel->save($forma)){
+			if($this->formaPagamentoLojaModel->replace($forma)){
 
-				//->protect(false)
 				
-				redirect()->back()->to(site_url("admin/formas/formaspagamento/$formaPagamento->id"))->with('sucesso', 'Forma cadastrada com sucesso');
+				return redirect()->to(site_url("admin/formas/show/$formaPagamento->id"))
+								->with('sucesso', 'Forma de pagamento atualizada com sucesso');
 
 			}else{
 				
@@ -267,19 +268,5 @@ class FormasPagamento extends BaseController
 
 	}
 
-	
-	public function formasPagamento($id = null){
-
-		$formaPagamento = $this->buscaFormaPagamentoOu404($id);
-
-		$data = [
-			'titulo' => "Gerenciar as formas de pagamento do produto $formaPagamento->nome",
-			'forma' => $formaPagamento,
-			'formaPagamentos' => $this->formaPagamentoLojaModel->buscaFormaPagamento($formaPagamento->id, 10),
-			'pager'=> $this->formaPagamentoLojaModel->pager,
-		];
-
-		return view('Admin/FormasPagamento/formas', $data);
-	}
 
 }

@@ -31,6 +31,10 @@
                             <?php echo esc($usuario->email); ?>
                         </p>
                         <p class="card-text">
+                            <span class="font-weight-bold">Data de Nascimento: </span>
+                            <?php echo esc($usuario->data_nascimento); ?>
+                        </p>
+                        <p class="card-text">
                             <span class="font-weight-bold">Telefone: </span>
                             <?php echo esc($usuario->telefone); ?>
                         </p>

@@ -13,6 +13,7 @@ class FormaPagamentoLojaModel extends Model
 	protected $validationRules    = [
         'id_forma_pagamento'     => 'required|integer',
         'id_loja'     => 'required|integer',
+		
 
 
     ];

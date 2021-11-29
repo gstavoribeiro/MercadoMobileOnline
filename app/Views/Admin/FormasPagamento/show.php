@@ -75,14 +75,24 @@
                                 <input type="checkbox" class="form-check-input" id="id_forma_pagamento" name="id_forma_pagamento" value=<?php echo $forma->id?>>
                                     Vincular na Loja
                             </label>
+
+                            <div class="form-check form-check-flat form-check-primary mb-2">
+                            <label for="ativo" class="form-check-label">
+                                <input type="hidden" name="ativo" value="0">
+                                <input type="checkbox" class="form-check-input" id="ativo" name="ativo" value="1" <?php if(old('ativo', $forma->ativo)): ?> checked= "" <?php endif; ?>>
+                                    Ativo
+                            </label>
                         </div>
 
-                        <button type="submit" class="btn btn-primary mr-2 btn-sm">
+                            <button type="submit" class="btn btn-primary mr-2 mt-2 btn-sm">
                                 <i class="mdi mdi-check-circle ptn-iton-prepend"></i>
                                 Salvar
-                            </a>
+                            </a> 
                             
                             </button>
+                        </div>
+
+                        
 
                         <?php echo form_close(); ?>
 

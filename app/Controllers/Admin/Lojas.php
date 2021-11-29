@@ -246,7 +246,7 @@ class Lojas extends BaseController
 		if($loja->deletado_em == null){
 
 			return redirect()->back()
-				->with('info', 'Apenas lojas excluidos podem ser recuperados');
+				->with('info', 'Apenas produtos excluidos podem ser recuperados');
 
 		}
 

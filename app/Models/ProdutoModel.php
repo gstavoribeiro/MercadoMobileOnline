@@ -63,6 +63,7 @@ class ProdutoModel extends Model
 
 	}
 
+
 	public function procurar($term){
 
 
@@ -97,6 +98,9 @@ class ProdutoModel extends Model
 		return $this->where('ativo', true)
 					->countAllResults();
 	}
+
+
+	
 
 	
 }

@@ -8,8 +8,8 @@
     </div>
 
     <div class="form-group col-md-2">
-        <label for="cpf">CPF</label>
-        <input type="text" class="form-control cpf" name="cpf" id="cpf" value="<?php echo old('cpf', esc($usuario->cpf));?>">
+        <label for="data_nascimento">Data de Nascimento</label>
+        <input type="date" class="form-control date" name="data_nascimento" id="data_nascimento" value="<?php echo old('data_nascimento', esc($usuario->data_nascimento));?>">
     </div>
 
     <div class="form-group col-md-3">

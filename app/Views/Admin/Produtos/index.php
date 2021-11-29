@@ -36,10 +36,13 @@
                             <tr>
                             <th>Nome</th>
                             <th>Categoria</th>
-                            <th>Data de criação</th>
+                            <th>Preco</th>
+                            <th>Quantidade</th>
                             <th>Ativo</th>
+                            <?php if ($_SESSION['super_admin'] == 1){ ?>
                             <th>Situação</th>
                             </tr>
+                            <?php } ?>
                         </thead>
                         <tbody>
 
@@ -50,9 +53,11 @@
                                     <a href="<?php echo site_url("admin/produtos/show/$produto->id"); ?>"><?php echo $produto->nome; ?></a> 
                                 </td>
                                 <td><?php echo $produto->categoria;  ?></td>
-                                <td><?php echo $produto->criado_em->humanize();  ?></td>
+                                <td><?php echo $produto->preco;?></td>
+                                <td><?php echo $produto->quantidade;?></td>
                                 <td><?php echo ($produto->ativo && $produto->deletado_em == null ? '<label class="badge badge-primary">Sim</label>' : '<label class="badge badge-danger">Não</label>') ?></td>
                                 <td>
+                                <?php if ($_SESSION['super_admin'] == 1){ ?>
                                     <?php echo ($produto->deletado_em == null ? '<label class="badge badge-primary">Disponivel</label>' : '<label class="badge badge-danger">Excluido</label>') ?>
 
                                     <?php if($produto->deletado_em != null):?>
@@ -66,6 +71,11 @@
 
 
                                 </td>
+
+                                <?php } ?>
+                                
+
+                
 
 
                         <?php endforeach;  ?>

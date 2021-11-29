@@ -31,15 +31,31 @@ class ProdutoLojaModel extends Model
 		
     ];
 
-	public function buscaEspecificacoesDoProduto(int $id_produto, int $quantidade_paginacao){
+	public function buscaEspecificacoesDoProduto(int $id_produto){
 		
 		return $this->select('produto.nome AS produtos, produto_loja.*')
 					->join('produto', 'produto.id = produto_loja.id_produto')
 					->where('produto_loja.id_produto', $id_produto)
-					->paginate($quantidade_paginacao);
+					->findAll();
 
 
 
 
 	}
+
+	public function listaPrecosProduto($id){
+		
+		$preco = $this->select(['produto_loja.*',  
+								'produto.nome AS produto',
+								'produto_loja.preco AS preco',
+								'produto_loja.quantidade AS quantidade',])
+						->join('produto', 'produto.id = produto_loja.id_produto')
+						->join('loja', 'loja.id = produto_loja.id_loja')
+						->where('loja.id', $_SESSION['loja_id'])
+						->first();
+
+		return $preco;
+
+	}
+
 }

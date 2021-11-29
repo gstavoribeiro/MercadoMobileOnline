@@ -51,7 +51,7 @@ class Login extends BaseController
 
 				//return redirect()->to(site_url('admin/home/'))
 					//->with('sucesso', "Olá $usuario->nome, bem vindo ao sistema!");
-					
+					session()->set('usuario_nome', $usuario->nome);
 					session()->set('usuario_id', $usuario->id);
 					session()->set('super_admin', $usuario->super_admin);
 					return $this->listarLojas($usuario->id);

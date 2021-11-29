@@ -27,10 +27,12 @@ class Produtos extends BaseController
 	{
 		$data = [
 			'titulo' => 'Listando os produtos',
-			'produtos' => $this->produtoModel->select('produto.*, categorias.nome AS categoria')
+			'produtos' => $this->produtoModel->select('produto.*, categorias.nome AS categoria,')
 											 ->join('categorias', 'categorias.id = produto.id_categoria')
 											 ->withDeleted(true)
 											 ->paginate(10),
+
+			//'precos' => $this->produtoLojaModel->listaPrecosProduto(),
 			
 			'pager' => $this->produtoModel->pager,
 
@@ -66,7 +68,8 @@ class Produtos extends BaseController
 
 	private function buscaProdutoOu404(int $id = null){
 
-		if(!$id || !$produto = $this->produtoModel->select('produto.*, categorias.nome AS categoria')
+		if(!$id || !$produto = $this->produtoModel->select('produto.*, 
+														   categorias.nome AS categoria,')
 													->join('categorias', 'categorias.id = produto.id_categoria')
 													->where('produto.id', $id)
 													->withDeleted(true)
@@ -140,9 +143,13 @@ class Produtos extends BaseController
 
 		$produto = $this->buscaProdutoOu404($id);
 
+		$preco = $this->produtoLojaModel->listaPrecosProduto($produto->id);
+
 		$data = [
 			'titulo' => "Detalhando o produto: $produto->nome",
 			'produto' => $produto,
+			'precos' => $preco,
+			
 
 
 		];
@@ -400,8 +407,7 @@ class Produtos extends BaseController
 		$data = [
 			'titulo' => "Gerenciar as especificações do produto $produto->nome",
 			'produto' => $produto,
-			'produtosEspecificacoes' => $this->produtoLojaModel->buscaEspecificacoesDoProduto($produto->id, 10),
-			'pager'=> $this->produtoLojaModel->pager,
+			'produtosEspecificacoes' => $this->produtoLojaModel->buscaEspecificacoesDoProduto($produto->id),
 		];
 
 		return view('Admin/Produtos/especificacoes', $data);
@@ -413,7 +419,7 @@ class Produtos extends BaseController
 		if($this->request->getMethod() === 'post' ){
 
 			$produto = $this->buscaProdutoOu404($id);
-			
+
 			$especificacao = $this->request->getPost();
 		
 			$especificacao['id_loja'] = $_SESSION["loja_id"];
@@ -421,11 +427,9 @@ class Produtos extends BaseController
 			$especificacao['preco'] = str_replace(",", "",$especificacao['preco']);
 			$especificacao['quantidade'] = str_replace(",", "",$especificacao['quantidade']);
 			
-			if($this->produtoLojaModel->protect(false)->save($especificacao)){
+			if($this->produtoLojaModel->replace($especificacao)){
 
-				
-
-				redirect()->back()->to(site_url("admin/produtos/especificacoes/$produto->id"))->with('sucesso', 'Especificação cadastrada com sucesso');
+				return redirect()->to(site_url("admin/produtos/show/$id"))->with('sucesso', 'Estoque cadastrado com sucesso');
 
 			}else{
 				
@@ -444,5 +448,43 @@ class Produtos extends BaseController
 
 
 
+	}
+
+	public function atualizarEspecificacao($id = null){
+
+		if($this->request->getMethod() === 'post'){
+
+
+			$produto = $this->buscaProdutoOu404($id);
+
+			$especificacao->fill($this->request->getPost());
+
+			if(!$especificacao->hasChanged()){
+
+				return redirect()->back()->with('info', 'Não há dados para atualizar');
+
+			}
+
+
+			if($this->produtoLojaModel->save($especificacao)){
+				
+				return redirect()->to(site_url("admin/produtos/show/$id"))->with('sucesso', 'Produto atualizado com sucesso');
+
+			}else{
+
+				//Erros de Validação
+				return redirect()->back()
+					->with('errors_model', $this->produtoLojaModel->errors())
+					->with('atencao', 'Por favor verifique os erros abaixo')
+					->withInput();
+
+			}
+
+
+		}else{
+
+
+			return redirect()->back();
+		}
 	}
 }
